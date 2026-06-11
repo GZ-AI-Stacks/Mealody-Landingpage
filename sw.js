@@ -1,4 +1,4 @@
-// Mealody Demo Service Worker — Offline-Cache der App-Shell
+﻿// Mealody Demo Service Worker — Offline-Cache der App-Shell
 const CACHE = "mealody-demo-v2";
 const ASSETS = [
   "./",
