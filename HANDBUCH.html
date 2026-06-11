@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mealody · Handbuch</title>
+<meta name="description" content="Das vollständige Handbuch zu Mealody – Kochen nach Gefühl. Alle Funktionen Schritt für Schritt erklärt." />
+<link rel="stylesheet" href="fonts/inter.css" />
+<link rel="stylesheet" href="fonts/fontawesome.min.css" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg-start: #1a0e06;
+    --bg-end: #060302;
+    --surface: rgba(40, 24, 12, 0.82);
+    --surface-2: rgba(55, 33, 16, 0.6);
+    --text: #f6ece1;
+    --text-soft: #e7c9a8;
+    --muted: #b89476;
+    --accent: #f0883c;
+    --accent-2: #ffb066;
+    --glow: rgba(240, 136, 60, 0.45);
+    --border: rgba(240, 136, 60, 0.35);
+    --accent-grad: linear-gradient(135deg, #c9621f, #f0a94e);
+  }
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    line-height: 1.7;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(240,136,60,0.12) 0%, transparent 45%),
+      radial-gradient(circle at 85% 90%, rgba(255,176,102,0.08) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, var(--bg-start) 0%, var(--bg-end) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 0 1rem 4rem;
+  }
+  a { color: var(--accent-2); }
+  .wrap { max-width: 880px; margin: 0 auto; }
+
+  /* Hero */
+  header.hero {
+    text-align: center;
+    padding: 4rem 1rem 3rem;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    background: var(--surface); border: 1px solid var(--border);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    padding: 0.5rem 1.3rem; border-radius: 999px;
+    font-weight: 700; font-size: 0.8rem; letter-spacing: 0.08em;
+    color: var(--accent-2);
+    box-shadow: 0 0 30px var(--glow);
+  }
+  header.hero h1 {
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    font-weight: 800; margin: 1.2rem 0 0.5rem;
+    background: linear-gradient(135deg, #fff, var(--accent-2) 70%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  header.hero p { color: var(--text-soft); font-size: 1.05rem; max-width: 560px; margin: 0 auto; }
+
+  /* TOC */
+  nav.toc {
+    background: var(--surface); border: 1px solid var(--border);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 18px;
+    padding: 1.6rem 1.8rem; margin: 1rem 0 2.5rem;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+  }
+  nav.toc h2 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 1rem; }
+  nav.toc ol { list-style: none; counter-reset: toc; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1.5rem; }
+  nav.toc li { counter-increment: toc; }
+  nav.toc a { display: flex; gap: 0.7rem; align-items: baseline; text-decoration: none; color: var(--text-soft); padding: 0.35rem 0; transition: 0.15s; }
+  nav.toc a::before { content: counter(toc, decimal-leading-zero); color: var(--accent); font-weight: 800; font-size: 0.8rem; }
+  nav.toc a:hover { color: var(--accent-2); transform: translateX(3px); }
+  @media (max-width: 600px) { nav.toc ol { grid-template-columns: 1fr; } }
+
+  section.card {
+    background: var(--surface); border: 1px solid var(--border);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 18px;
+    padding: 2rem 2.2rem; margin-bottom: 1.6rem;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+    scroll-margin-top: 1.5rem;
+  }
+  section.card h2 {
+    font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  section.card h2 .ico {
+    width: 44px; height: 44px; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--accent-grad); border-radius: 12px;
+    color: #fff; font-size: 1.1rem;
+    box-shadow: 0 0 20px var(--glow);
+  }
+  section.card h3 { font-size: 1.05rem; font-weight: 700; color: var(--accent-2); margin: 1.4rem 0 0.5rem; }
+  section.card p { color: var(--text-soft); margin-bottom: 0.8rem; }
+  section.card ul, section.card ol { margin: 0.4rem 0 1rem 1.4rem; color: var(--text-soft); }
+  section.card li { margin-bottom: 0.45rem; }
+  strong { color: var(--text); }
+
+  .kbd, code {
+    background: rgba(0,0,0,0.45); border: 1px solid var(--border);
+    border-radius: 6px; padding: 0.12rem 0.5rem;
+    font-family: ui-monospace, monospace; font-size: 0.85em;
+    color: var(--accent-2);
+  }
+  .steps { counter-reset: step; list-style: none; margin-left: 0 !important; }
+  .steps li { position: relative; padding-left: 2.6rem; margin-bottom: 0.9rem; }
+  .steps li::before {
+    counter-increment: step; content: counter(step);
+    position: absolute; left: 0; top: 0;
+    width: 1.9rem; height: 1.9rem;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-grad); color: #fff; font-weight: 800;
+    border-radius: 50%; font-size: 0.85rem;
+  }
+  .tip {
+    border-left: 3px solid var(--accent);
+    background: var(--surface-2); border-radius: 0 12px 12px 0;
+    padding: 0.9rem 1.2rem; margin: 1rem 0;
+    color: var(--text-soft); font-size: 0.95rem;
+  }
+  .tip strong { color: var(--accent-2); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 1rem 0; }
+  @media (max-width: 600px) { .grid2 { grid-template-columns: 1fr; } }
+  .opt {
+    background: var(--surface-2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 0.8rem 1rem;
+  }
+  .opt b { color: var(--accent-2); display: block; margin-bottom: 0.2rem; }
+  .opt span { font-size: 0.9rem; color: var(--muted); }
+
+  footer {
+    text-align: center; color: var(--muted); font-size: 0.85rem;
+    padding: 2.5rem 1rem 0; line-height: 1.8;
+  }
+  footer a { color: var(--accent-2); text-decoration: none; }
+
+  .top-link {
+    position: fixed; right: 1.2rem; bottom: 1.2rem;
+    width: 48px; height: 48px; border-radius: 50%;
+    background: var(--accent-grad); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; box-shadow: 0 4px 20px var(--glow);
+    font-size: 1.1rem; z-index: 50;
+  }
+  :focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<a href="#top" class="top-link" aria-label="Zurück nach oben"><i class="fas fa-arrow-up" aria-hidden="true"></i></a>
+
+<div class="wrap" id="top">
+  <header class="hero">
+    <span class="badge"><i class="fas fa-heart" aria-hidden="true"></i> MEALODY · HANDBUCH</span>
+    <h1>Kochen nach Gefühl</h1>
+    <p>Mealody schlägt dir aus 200 Rezepten genau das vor, worauf du gerade Lust hast. Dieses Handbuch erklärt jede Funktion Schritt für Schritt.</p>
+  </header>
+
+  <nav class="toc" aria-label="Inhaltsverzeichnis">
+    <h2>Inhalt</h2>
+    <ol>
+      <li><a href="#start">Erster Start &amp; Freischaltung</a></li>
+      <li><a href="#stimmung">Deine Stimmung wählen</a></li>
+      <li><a href="#intuition">Der Intuitions-Wert (%)</a></li>
+      <li><a href="#suche">Suchen, Filtern &amp; Sortieren</a></li>
+      <li><a href="#rezept">Ein Rezept öffnen</a></li>
+      <li><a href="#einkauf">Einkaufsliste &amp; Preisrechner</a></li>
+      <li><a href="#eigene">Eigene Rezepte anlegen</a></li>
+      <li><a href="#neu">Neue Funktionen (v1.2)</a></li>
+      <li><a href="#neu13">Neue Funktionen (v1.3)</a></li>
+      <li><a href="#neu14">Neue Funktionen (v1.4)</a></li>
+      <li><a href="#design">Design, Zoom &amp; Personen</a></li>
+      <li><a href="#offline">Offline &amp; Installation</a></li>
+      <li><a href="#hilfe">Tipps &amp; Hilfe</a></li>
+    </ol>
+  </nav>
+
+  <section class="card" id="start">
+    <h2><span class="ico"><i class="fas fa-unlock" aria-hidden="true"></i></span> Erster Start &amp; Freischaltung</h2>
+    <p>Beim ersten Öffnen wird ein <strong>Freischaltcode</strong> verlangt. Diesen erhältst du beim Kauf von Mealody.</p>
+    <ol class="steps">
+      <li>Code in das Feld <strong>„Freischaltcode"</strong> eintippen.</li>
+      <li>Auf <strong>Freischalten</strong> klicken.</li>
+      <li>Die App merkt sich die Freischaltung – du musst den Code nur einmal eingeben.</li>
+    </ol>
+    <div class="tip"><strong>Hinweis:</strong> Löschst du die Browser-Daten oder nutzt einen anderen Browser, wird der Code erneut abgefragt.</div>
+  </section>
+
+  <section class="card" id="stimmung">
+    <h2><span class="ico"><i class="fas fa-brain" aria-hidden="true"></i></span> Deine Stimmung wählen</h2>
+    <p>Links findest du den <strong>Intuitions-Bereich</strong>. Hier sagst du Mealody in vier Schritten, worauf du Lust hast – die Rezepte passen sich sofort an.</p>
+
+    <h3>1. Gefühl</h3>
+    <div class="grid2">
+      <div class="opt"><b><i class="fas fa-couch" aria-hidden="true"></i> Gemütlich</b><span>Wohlfühl-Essen, herzerwärmend</span></div>
+      <div class="opt"><b><i class="fas fa-leaf" aria-hidden="true"></i> Frisch &amp; leicht</b><span>Salate, Bowls, Helles</span></div>
+      <div class="opt"><b><i class="fas fa-utensils" aria-hidden="true"></i> Herzhaft</b><span>Kräftig &amp; würzig</span></div>
+      <div class="opt"><b><i class="fas fa-face-smile" aria-hidden="true"></i> Glücklichmacher</b><span>Soulfood &amp; Süßes</span></div>
+    </div>
+
+    <h3>2. Aufwand</h3>
+    <div class="grid2">
+      <div class="opt"><b><i class="fas fa-bolt" aria-hidden="true"></i> Schnell</b><span>In wenigen Minuten fertig</span></div>
+      <div class="opt"><b><i class="fas fa-kitchen-set" aria-hidden="true"></i> Normal</b><span>Entspanntes Kochen</span></div>
+      <div class="opt"><b><i class="fas fa-feather-alt" aria-hidden="true"></i> Zeit &amp; Liebe</b><span>Für besondere Momente</span></div>
+    </div>
+
+    <h3>3. Hunger</h3>
+    <div class="grid2">
+      <div class="opt"><b><i class="fas fa-seedling" aria-hidden="true"></i> Leicht</b><span>Kleine Portion</span></div>
+      <div class="opt"><b><i class="fas fa-chart-simple" aria-hidden="true"></i> Sättigend</b><span>Macht angenehm satt</span></div>
+      <div class="opt"><b><i class="fas fa-drumstick-bite" aria-hidden="true"></i> Deftig</b><span>Richtig was im Magen</span></div>
+    </div>
+
+    <div class="tip"><strong>Sofort sichtbar:</strong> Sobald du etwas auswählst, sortiert Mealody die Rezeptliste neu – das Passendste steht oben.</div>
+  </section>
+
+  <section class="card" id="intuition">
+    <h2><span class="ico"><i class="fas fa-bullseye" aria-hidden="true"></i></span> Der Intuitions-Wert (%)</h2>
+    <p>Jedes Rezept zeigt rechts einen runden <strong>Prozent-Ring</strong>. Er sagt, wie gut das Gericht zu deiner aktuellen Auswahl passt.</p>
+    <ul>
+      <li><strong>100 %</strong> – passt perfekt zu Gefühl, Aufwand und Hunger.</li>
+      <li><strong>70–99 %</strong> – sehr gute Wahl, kleine Abweichung.</li>
+      <li><strong>darunter</strong> – passt teilweise, aber vielleicht trotzdem lecker.</li>
+    </ul>
+    <p>Die Berechnung gewichtet <strong>Gefühl (40 %)</strong>, <strong>Aufwand (35 %)</strong> und <strong>Hunger (25 %)</strong>.</p>
+    <div class="tip"><strong>Standard-Sortierung:</strong> Rezepte sind nach Intuition % sortiert – die 100 %-Treffer stehen immer ganz oben.</div>
+  </section>
+
+  <section class="card" id="suche">
+    <h2><span class="ico"><i class="fas fa-magnifying-glass" aria-hidden="true"></i></span> Suchen, Filtern &amp; Sortieren</h2>
+    <h3>Suchen</h3>
+    <p>Tippe in die <strong>Suchleiste</strong> – Mealody durchsucht Name, Beschreibung, Tags und sogar Zutaten. Such z. B. nach <code>Tomate</code> oder <code>Pasta</code>.</p>
+    <h3>Kategorien</h3>
+    <p>Über die <strong>Kategorie-Chips</strong> filterst du nach Art des Gerichts. Klick auf einen Chip, um nur diese Kategorie zu sehen.</p>
+    <h3>Sortieren</h3>
+    <p>Im <strong>Sortier-Menü</strong> wählst du:</p>
+    <ul>
+      <li><strong>Intuition %</strong> (Standard) – bestes Match oben.</li>
+      <li><strong>A–Z</strong> – alphabetisch nach Name.</li>
+    </ul>
+    <h3>Alle anzeigen</h3>
+    <p>Standardmäßig zeigt Mealody nur die <strong>passenden</strong> Rezepte. Mit <strong>„Alle anzeigen"</strong> siehst du das komplette Sortiment, mit <strong>„Nur passende"</strong> kehrst du zurück.</p>
+  </section>
+
+  <section class="card" id="rezept">
+    <h2><span class="ico"><i class="fas fa-book-open" aria-hidden="true"></i></span> Ein Rezept öffnen</h2>
+    <ol class="steps">
+      <li>Auf eine <strong>Rezept-Karte</strong> klicken.</li>
+      <li>Im Fenster siehst du <strong>Zutaten</strong>, <strong>Zubereitung Schritt für Schritt</strong>, <strong>Zeit</strong> und <strong>Temperatur</strong>.</li>
+      <li>Die Zutatenmengen passen sich automatisch an die gewählte <strong>Personenzahl</strong> an.</li>
+      <li>Mit <strong>„In die Einkaufsliste"</strong> wandern alle Zutaten direkt in deine Liste.</li>
+    </ol>
+  </section>
+
+  <section class="card" id="einkauf">
+    <h2><span class="ico"><i class="fas fa-basket-shopping" aria-hidden="true"></i></span> Einkaufsliste &amp; Preisrechner</h2>
+    <p>Die <strong>Einkaufsliste</strong> sammelt Zutaten aus all deinen gewählten Rezepten – ordentlich nach Gruppen sortiert.</p>
+    <ul>
+      <li>Zutaten <strong>abhaken</strong>, was schon im Wagen liegt.</li>
+      <li>Der <strong>Preisrechner</strong> zeigt eine geschätzte Gesamtsumme.</li>
+      <li>Über die Aktionen kannst du die Liste leeren oder weiterverwenden.</li>
+    </ul>
+    <div class="tip"><strong>Tipp:</strong> Stell zuerst die Personenzahl ein – dann stimmen die Mengen auf der Einkaufsliste sofort.</div>
+  </section>
+
+  <section class="card" id="eigene">
+    <h2><span class="ico"><i class="fas fa-plus-circle" aria-hidden="true"></i></span> Eigene Rezepte anlegen</h2>
+    <p>Klick auf <strong>„Eigenes Rezept hinzufügen"</strong> und fülle die Felder aus. Mit <span class="kbd">*</span> markierte Felder sind Pflicht.</p>
+    <ul>
+      <li><strong>Name</strong> &amp; <strong>Kurzbeschreibung</strong></li>
+      <li><strong>Gefühl</strong> (z. B. gemütlich, frisch, herzhaft, glücklich)</li>
+      <li><strong>Aufwand</strong> (schnell, normal, liebe) &amp; <strong>Hunger</strong> (leicht, mittel, deftig)</li>
+      <li><strong>Zeit</strong> in Minuten und optional <strong>Temperatur</strong></li>
+      <li><strong>Tags</strong> (kommagetrennt)</li>
+      <li><strong>Zutaten</strong> – je Zeile: <code>Menge Einheit Name</code></li>
+      <li><strong>Zubereitung</strong> – je Zeile ein Schritt</li>
+    </ul>
+    <div class="tip"><strong>Gut zu wissen:</strong> Deine eigenen Rezepte werden lokal gespeichert und tauchen mit eigenem Intuitions-Wert in der Liste auf.</div>
+  </section>
+
+  <section class="card" id="neu">
+    <h2><span class="ico"><i class="fas fa-star" aria-hidden="true"></i></span> Neue Funktionen (v1.2)</h2>
+
+    <h3><i class="fas fa-heart" aria-hidden="true"></i> Favoriten</h3>
+    <p>Auf jeder Rezept-Karte sitzt oben ein <strong>Herz</strong>. Einmal klicken = Favorit. Sobald du mindestens einen Favoriten hast, erscheint in der Kategorie-Leiste der Chip <strong>„Favoriten"</strong> – damit siehst du nur noch deine Lieblingsrezepte.</p>
+
+    <h3><i class="fas fa-kitchen-set" aria-hidden="true"></i> Koch-Modus</h3>
+    <p>Im Rezept-Fenster startest du mit <strong>„Jetzt kochen – Schritt für Schritt"</strong> den Vollbild-Kochmodus:</p>
+    <ul>
+      <li>Ein Schritt pro Bildschirm, groß und gut lesbar – ideal mit bemehlten Fingern.</li>
+      <li>Erkennt Mealody eine Zeitangabe im Schritt (z. B. „20 Minuten köcheln"), bekommst du einen <strong>eingebauten Timer</strong> mit Signalton.</li>
+      <li>Der Bildschirm bleibt während des Kochens <strong>an</strong> (sofern dein Gerät das unterstützt).</li>
+      <li>Am Ende bewertest du das Gericht mit <strong>1–5 Sternen</strong> – Mealody merkt sich, wie oft du es gekocht hast und wie es dir geschmeckt hat. Beides siehst du beim nächsten Öffnen des Rezepts.</li>
+    </ul>
+
+    <h3><i class="fas fa-calendar-week" aria-hidden="true"></i> Wochenplaner</h3>
+    <p>Links über den Button <strong>„Wochenplaner"</strong> planst du Montag bis Sonntag. Pro Tag wählst du ein Rezept – oben im Menü stehen die Vorschläge, die zu deiner aktuellen Stimmung passen.</p>
+    <p>Keine Lust, alles selbst auszusuchen? <strong>„Überrasch mich – Woche füllen"</strong> würfelt für alle leeren Tage passende Gerichte (ohne Doppelte, Ernährungs-Filter wird beachtet). Daneben hat <strong>jeder Tag einen eigenen 🎲-Knopf</strong> – damit würfelst du nur diesen einen Tag neu, falls dir ein Vorschlag nicht gefällt.</p>
+    <div class="tip"><strong>Der Clou:</strong> Ein Klick auf <strong>„Wochen-Einkaufsliste erstellen"</strong> packt alle Zutaten der geplanten Woche in eine neue Einkaufsliste („Wochenplan KW …") – einmal einkaufen, ganze Woche kochen.</div>
+
+    <h3><i class="fas fa-carrot" aria-hidden="true"></i> Reste verwerten</h3>
+    <p>Nach dem Einkauf bleibt was übrig? Links über <strong>„Reste verwerten"</strong> trägst du deine übrigen Zutaten ein (einzeln oder kommagetrennt, z. B. <code>Paprika, Sahne, Reis</code>). Mealody zeigt dir sofort die Rezepte, die <strong>möglichst viele deiner Reste verbrauchen</strong> – sortiert nach Trefferzahl. Ein Klick auf die Zutat-Chips entfernt sie wieder; deine Liste bleibt gespeichert, bis du sie änderst.</p>
+
+    <h3><i class="fas fa-seedling" aria-hidden="true"></i> Vegetarisch / Vegan</h3>
+    <p>Über den Rezepten findest du die Chips <strong>🌱 Vegetarisch</strong> und <strong>🌿 Vegan</strong>. Ein Klick filtert die Liste, erneutes Klicken hebt den Filter auf.</p>
+    <div class="tip"><strong>Hinweis:</strong> Die Einstufung erfolgt automatisch anhand der Zutatenliste. Bei Unverträglichkeiten oder strenger Ernährung bitte immer selbst die Zutaten prüfen.</div>
+
+    <h3><i class="fas fa-dice" aria-hidden="true"></i> Überrasch mich</h3>
+    <p>Keine Lust zu entscheiden? Der Button <strong>🎲 Überrasch mich</strong> lässt die Küche würfeln: Eine kurze Roulette-Animation läuft durch, dann öffnet sich ein zufälliges Rezept – passende Treffer zu deiner Stimmung haben dabei bessere Chancen.</p>
+
+    <h3><i class="fas fa-file-export" aria-hidden="true"></i> Eigene Rezepte sichern</h3>
+    <p>Im Formular „Eigenes Rezept hinzufügen" gibt es zwei neue Knöpfe:</p>
+    <ul>
+      <li><strong>Rezepte sichern</strong> – speichert alle deine eigenen Rezepte als JSON-Datei. Es öffnet sich ein „Speichern unter"-Dialog, du wählst Ort und Namen selbst.</li>
+      <li><strong>Wiederherstellen</strong> – liest eine solche Datei wieder ein, z. B. nach einem Browser-Wechsel oder auf einem neuen Gerät. Bereits vorhandene Rezepte werden nicht doppelt angelegt.</li>
+    </ul>
+    <div class="tip"><strong>Empfehlung:</strong> Sichere deine eigenen Rezepte regelmäßig – sie liegen sonst nur im Browser-Speicher und gehen beim Löschen der Browserdaten verloren.</div>
+  </section>
+
+  <section class="card" id="neu13">
+    <h2><span class="ico"><i class="fas fa-rocket" aria-hidden="true"></i></span> Neue Funktionen (v1.3)</h2>
+
+    <h3><i class="fas fa-store" aria-hidden="true"></i> Einkaufsliste nach Abteilungen</h3>
+    <p>In der Einkaufsliste schaltest du mit dem <strong>Laden-Symbol</strong> oben in der Leiste zwischen zwei Ansichten um: <strong>nach Rezept</strong> (wie bisher) oder <strong>nach Supermarkt-Abteilung</strong> – Obst &amp; Gemüse, Milchprodukte, Fleisch, Konserven usw. So läufst du einmal durch den Laden statt kreuz und quer. Abhaken und Preise eintragen funktioniert in beiden Ansichten.</p>
+
+    <h3><i class="fas fa-share-nodes" aria-hidden="true"></i> Einkaufsliste teilen</h3>
+    <p>Der Button <strong>„Teilen"</strong> schickt die komplette Liste an WhatsApp, E-Mail &amp; Co. (auf Geräten, die das Teilen unterstützen). Am PC wird die Liste stattdessen in die Zwischenablage kopiert.</p>
+
+    <h3><i class="fas fa-pen" aria-hidden="true"></i> Eigene Notizen pro Rezept</h3>
+    <p>Jedes Rezept hat jetzt unten ein Feld <strong>„Meine Notizen"</strong> – z. B. „weniger Salz" oder „Tipp von Oma". Die Notiz wird beim Tippen automatisch gespeichert und erscheint auch auf dem Ausdruck.</p>
+
+    <h3><i class="fas fa-chart-line" aria-hidden="true"></i> Meine Statistik</h3>
+    <p>Links über <strong>„Meine Statistik"</strong> siehst du: wie oft du gekocht hast, wie viele verschiedene Rezepte, deinen <strong>Tage-Streak 🔥</strong> (Kochen an aufeinanderfolgenden Tagen), deine Top-5-Rezepte mit Sterne-Bewertung und deine Lieblingskategorie.</p>
+
+    <h3><i class="fas fa-print" aria-hidden="true"></i> Drucken</h3>
+    <p>Im Rezept-Fenster gibt es <strong>„Rezept drucken"</strong> – eine saubere Druckansicht mit Zutaten, Schritten und deinen Notizen. Auch der <strong>Wochenplan</strong> hat einen eigenen <strong>„Drucken"</strong>-Knopf – perfekt für den Kühlschrank.</p>
+
+    <h3><i class="fas fa-seedling" aria-hidden="true"></i> Saison-Hinweis</h3>
+    <p>Über der Rezeptliste zeigt Mealody, <strong>welche Zutaten gerade Saison haben</strong> (z. B. Spargel im Mai, Kürbis im Oktober). Ein Klick auf eine Zutat sucht sofort alle passenden Rezepte.</p>
+
+    <h3><i class="fas fa-fire" aria-hidden="true"></i> Kalorien-Schätzung</h3>
+    <p>Jedes Rezept zeigt oben <strong>≈ kcal pro Portion</strong>. Das ist eine <strong>grobe Schätzung</strong> anhand typischer Nährwerte – kein Messwert und kein Ersatz für eine Nährwertberechnung, aber eine gute Orientierung.</p>
+
+    <h3><i class="fas fa-box-open" aria-hidden="true"></i> Vorratskammer</h3>
+    <p>Links über <strong>„Vorratskammer"</strong> trägst du ein, was du <strong>immer zu Hause</strong> hast (Nudeln, Reis, Olivenöl …). Mealody zeigt dir, welche Rezepte du damit schon fast komplett kochen kannst – mit Prozentangabe. Und im Rezept bekommt jede Zutat, die du im Vorrat (oder bei den Resten) hast, ein grünes <strong>✓</strong>.</p>
+    <div class="tip"><strong>Unterschied zu „Reste verwerten":</strong> Die Vorratskammer ist für Dauervorräte, die Reste-Küche für das, was nach dem Kochen übrig bleibt. Beide zählen für das grüne ✓ im Rezept.</div>
+  </section>
+
+  <section class="card" id="neu14">
+    <h2><span class="ico"><i class="fas fa-wand-magic-sparkles" aria-hidden="true"></i></span> Neue Funktionen (v1.4)</h2>
+
+    <h3><i class="fas fa-users" aria-hidden="true"></i> Personen direkt im Rezept ändern</h3>
+    <p>Im Rezept-Fenster sitzen jetzt <strong>− und +</strong> neben der Personenzahl. Ein Klick – und alle Zutatenmengen rechnen sich sofort um. Die Auswahl gilt überall (auch links in der Sidebar).</p>
+
+    <h3><i class="fas fa-layer-group" aria-hidden="true"></i> Einkaufsliste: Zutaten werden zusammengefasst</h3>
+    <p>In der <strong>Abteilungs-Ansicht</strong> fasst Mealody gleiche Zutaten automatisch zusammen: Brauchen drei Rezepte Zwiebeln, steht da <strong>eine Zeile mit der Gesamtmenge</strong> – dahinter siehst du, aus welchen Rezepten sie stammt. Abhaken hakt alle Quell-Positionen gleichzeitig ab.</p>
+
+    <h3><i class="fas fa-box-archive" aria-hidden="true"></i> Komplett-Backup</h3>
+    <p>Unter „Eigenes Rezept hinzufügen" gibt es jetzt <strong>„Komplett-Backup"</strong>: sichert ALLES in einer Datei – Favoriten, Notizen, Koch-Historie, Wochenplan, Vorratskammer, Reste, Einkaufslisten und eigene Rezepte. Mit <strong>„Backup einspielen"</strong> holst du alles auf einem neuen Gerät oder Browser zurück.</p>
+    <div class="tip"><strong>Empfehlung:</strong> Einmal im Monat ein Komplett-Backup ziehen – dann ist ein Browser- oder Gerätewechsel völlig entspannt.</div>
+
+    <h3><i class="fas fa-filter-circle-xmark" aria-hidden="true"></i> Ausschluss-Suche &amp; Allergie-Filter</h3>
+    <p>Die Suche versteht jetzt ein Minus: <code>-pilze</code> zeigt alles <strong>ohne</strong> Pilze. Kombinierbar: <code>nudeln -sahne</code> findet Nudelgerichte ohne Sahne. Dazu gibt es zwei neue Filter-Chips: <strong>🥜 Ohne Nüsse</strong> und <strong>🥛 Ohne Milch</strong>.</p>
+    <div class="tip"><strong>Wichtig:</strong> Die Erkennung erfolgt automatisch anhand der Zutatenliste. Bei Allergien oder Unverträglichkeiten bitte IMMER selbst die Zutaten prüfen – der Filter ist eine Hilfe, kein medizinisch verlässlicher Schutz.</div>
+
+    <h3><i class="fas fa-rotate" aria-hidden="true"></i> Zutaten-Alternativen mit angepasster Menge</h3>
+    <p>Zutaten wie Butter, Sahne, Milch, Käse, Hackfleisch, Honig oder Nüsse tragen im Rezept ein kleines <strong>🔄-Symbol</strong>. Antippen zeigt passende Alternativen – <strong>vegan, laktosefrei oder nussfrei</strong> – und rechnet die Menge gleich mit um: aus 100&nbsp;g Butter werden z.&nbsp;B. 80&nbsp;ml Öl, aus 1&nbsp;Ei wird 1&nbsp;EL geschrotete Leinsamen mit 3&nbsp;EL Wasser. Die Mengen passen sich auch der eingestellten Personenzahl an.</p>
+    <div class="tip"><strong>Wichtig:</strong> Die Tausch-Tipps sind Richtwerte und können Geschmack und Konsistenz leicht verändern. Bei Allergien gilt wie immer: selbst die Zutaten prüfen.</div>
+
+    <h3><i class="fas fa-egg" aria-hidden="true"></i> Gericht des Tages</h3>
+    <p>Über der Rezeptliste schlägt Mealody jeden Tag <strong>ein Gericht des Tages</strong> vor – bevorzugt mit Zutaten, die gerade Saison haben. Antippen öffnet das Rezept. Morgen gibt's einen neuen Vorschlag.</p>
+
+    <h3><i class="fas fa-calendar-day" aria-hidden="true"></i> Wochenplan mit 3 Mahlzeiten</h3>
+    <p>Der Wochenplaner kann jetzt <strong>☕ Frühstück, ☀️ Mittag und 🌙 Abend</strong> pro Tag. Jede Mahlzeit hat ihren eigenen 🎲-Würfel – beim Frühstück werden typische Frühstücksgerichte bevorzugt. „Überrasch mich" füllt Mittag &amp; Abend, das Frühstück planst du selbst. Wochen-Einkaufsliste und Druck nehmen alle Mahlzeiten mit.</p>
+
+    <h3><i class="fas fa-stopwatch" aria-hidden="true"></i> Mehrere Timer gleichzeitig</h3>
+    <p>Im Koch-Modus kannst du jetzt <strong>beliebig viele Timer parallel</strong> laufen lassen – z. B. Nudeln 10 min und Sauce 20 min. Jeder Timer erscheint als kleiner Chip am unteren Rand, läuft auch beim Blättern durch die Schritte weiter und meldet sich mit Signalton.</p>
+  </section>
+
+  <section class="card" id="design">
+    <h2><span class="ico"><i class="fas fa-palette" aria-hidden="true"></i></span> Design, Zoom &amp; Personen</h2>
+    <h3>5 Designs</h3>
+    <div class="grid2">
+      <div class="opt"><b>🍳 Küche</b><span>Standard – edles Kochbuch in Creme &amp; Terracotta</span></div>
+      <div class="opt"><b>🌙 Dunkel</b><span>Augenschonend am Abend</span></div>
+      <div class="opt"><b>☀️ Hell</b><span>Klar &amp; freundlich</span></div>
+      <div class="opt"><b>🌲 Wald</b><span>Ruhiges Grün</span></div>
+      <div class="opt"><b>🌅 Abendrot</b><span>Warmes Orange-Rosa</span></div>
+    </div>
+    <h3>Helligkeit (Dimmer)</h3>
+    <p>Unter der Design-Auswahl sitzt ein <strong>Helligkeits-Regler</strong> (55–100 %). Damit dunkelst du die ganze App sanft ab – angenehm beim Kochen am Abend. Die Einstellung wird gespeichert.</p>
+    <h3>Personen (1–6)</h3>
+    <p>Wähle, für wie viele Personen du kochst – alle Mengen rechnen sich automatisch um.</p>
+    <h3>Zoom</h3>
+    <p>Mit <strong>Verkleinern / Vergrößern</strong> passt du die Schriftgröße an. Praktisch am Herd, wenn du das Tablet etwas weiter weg stehen hast.</p>
+  </section>
+
+  <section class="card" id="offline">
+    <h2><span class="ico"><i class="fas fa-wifi" aria-hidden="true"></i></span> Offline &amp; Installation</h2>
+    <p>Mealody ist eine <strong>App, die offline funktioniert</strong>. Einmal geladen, brauchst du kein Internet mehr.</p>
+    <ul>
+      <li><strong>Installieren:</strong> Im Browser-Menü <strong>„Zum Startbildschirm hinzufügen"</strong> bzw. <strong>„App installieren"</strong> wählen.</li>
+      <li>Danach startet Mealody wie eine normale App – ohne Browser-Leiste.</li>
+      <li>Deine Einstellungen, Einkaufsliste und eigenen Rezepte bleiben gespeichert.</li>
+    </ul>
+  </section>
+
+  <section class="card" id="hilfe">
+    <h2><span class="ico"><i class="fas fa-life-ring" aria-hidden="true"></i></span> Tipps &amp; Hilfe</h2>
+    <ul>
+      <li><strong>Nichts passt?</strong> Klick „Alle anzeigen" oder ändere deine Stimmungs-Auswahl.</li>
+      <li><strong>Liste zu lang?</strong> Nutze die Kategorie-Chips oder die Suche.</li>
+      <li><strong>Falsche Mengen?</strong> Prüfe die Personenzahl oben im Intuitions-Bereich.</li>
+      <li><strong>Code wird wieder abgefragt?</strong> Browser-Daten wurden gelöscht – Code erneut eingeben.</li>
+    </ul>
+    <div class="tip"><strong>Viel Freude beim Kochen!</strong> Mealody ist dafür da, dir die Entscheidung abzunehmen – nicht sie schwerer zu machen.</div>
+  </section>
+
+  <footer>
+    <p><strong>Mealody</strong> · Kochen nach Gefühl · 200 Rezepte</p>
+    <p>Gerd Zimmermann GZ-AI.-Stacks · <a href="https://www.gz-ai-stacks.de">www.gz-ai-stacks.de</a></p>
+  </footer>
+</div>
+</body>
+</html>

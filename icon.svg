@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Mealody Icon">
+  <defs>
+    <linearGradient id="warm" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffb347"/>
+      <stop offset="0.55" stop-color="#f0883c"/>
+      <stop offset="1" stop-color="#e0533c"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.38" r="0.7">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#7a2b12" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <!-- weiche runde Grundform -->
+  <rect x="32" y="32" width="448" height="448" rx="120" fill="url(#warm)"/>
+  <rect x="32" y="32" width="448" height="448" rx="120" fill="url(#glow)"/>
+  <!-- Teller -->
+  <circle cx="256" cy="262" r="138" fill="#fff8ef"/>
+  <circle cx="256" cy="262" r="138" fill="none" stroke="#e0533c" stroke-opacity="0.25" stroke-width="10"/>
+  <circle cx="256" cy="262" r="96" fill="none" stroke="#f0883c" stroke-opacity="0.35" stroke-width="6"/>
+  <!-- Herz in der Mitte (Gefuehl) -->
+  <path d="M256 332c-58-38-98-72-98-118 0-32 25-56 56-56 21 0 35 11 42 25 7-14 21-25 42-25 31 0 56 24 56 56 0 46-40 80-98 118z" fill="#e0533c"/>
+  <!-- kleines Glanzlicht auf dem Herz -->
+  <ellipse cx="222" cy="206" rx="20" ry="13" fill="#fff8ef" opacity="0.5" transform="rotate(-30 222 206)"/>
+</svg>
